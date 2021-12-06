@@ -1,11 +1,14 @@
 package my.project.docassembler.model;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
 
+@JsonTypeName("inner")
 public class Inner implements Document {
 
-    @Getter @Setter private List<Document> nodes;
+    @Getter private List<Document> nodes;
 
     @Override
     public String getText() {

@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class DocumentController {
 
     @GetMapping("/document")
-    @ResponseBody // Deserializar JSON
-    public Document getDocument(@RequestParam String jsonDocument) throws JsonProcessingException {
+    @ResponseBody // Deserializar JSON do Body
+    public DocumentViewer getDocument(@RequestParam String jsonDocument) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(jsonDocument, DocumentViewer.getDocument().class);
+        return new DocumentViewer(objectMapper.readValue(jsonDocument, Document.class));
     }
 
 }
