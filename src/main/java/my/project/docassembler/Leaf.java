@@ -1,4 +1,4 @@
-package my.project.documentassembler;
+package my.project.docassembler;
 import lombok.Getter;
 import lombok.Setter;
 

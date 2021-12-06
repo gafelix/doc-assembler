@@ -1,4 +1,4 @@
-package my.project.documentassembler;
+package my.project.docassembler;
 
 public interface Document {
 
