@@ -1,4 +1,4 @@
-package my.project.docassembler;
+package my.project.docassembler.model;
 
 public interface Document {
 
