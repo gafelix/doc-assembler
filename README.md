@@ -19,3 +19,14 @@ Existem duas partes: Spring MVC e a lógica da árvore. Primeiro é necessário 
 1. Receber a requisição POST (json).
 2. Converter o Json para um objeto do Model. Depois é que entra a lógica da árvore.
 3. Aplicar a lógica para operar a árvore (descrito no documento de solução).
+
+# Campo Auxiliar (última modificação 06/12/2021 12:20)
+Último erro:
+>com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot deserialize value of type `my.project.docassembler.model.Inner` from Array value (token `JsonToken.START_ARRAY`)
+ at [Source: (String)"{"inner": [{"leaf": "Felix"}]}"; line: 1, column: 11]
+ 
+ Últimas referências
+ >https://stackoverflow.com/questions/11798394/polymorphism-in-jackson-annotations-jsontypeinfo-usage
+ >https://www.tutorialspoint.com/jackson_annotations/jackson_annotations_jsontypename.htm
+ >https://www.baeldung.com/spring-mvc-send-json-parameters
+ >https://spring.io/guides/gs/rest-service/
