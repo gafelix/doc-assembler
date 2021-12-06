@@ -8,22 +8,23 @@ import java.util.List;
 @JsonTypeName("inner")
 public class Inner implements Document {
 
-    @Getter private List<Document> nodes;
+    @Getter private List<Document> documents;
 
     @Override
     public String getText() {
         String nodesText = "";
-        for(Document document: this.getNodes()) {
+        for(Document document: this.getDocuments()) {
             nodesText += document.getText() + " ";
         }
         return nodesText;
     }
 
     public void add(Document document) {
-        nodes.add(document);
+        this.getDocuments().add(document);
     }
 
     public void remove(Document document) {
-        nodes.remove(document);
+        this.getDocuments().remove(document);
     }
+
 }
