@@ -1,7 +1,8 @@
-package my.project.docassembler.model;
+package my.project.docassembler.model.Impl;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.Getter;
 import lombok.Setter;
+import my.project.docassembler.model.Document;
 
 @JsonTypeName("leaf")
 public class Leaf implements Document {
