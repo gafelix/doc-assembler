@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@RestController //Declara @Controller + @ResponseBody
 @RequestMapping("/document")
 @AllArgsConstructor
 public class DocumentController {
@@ -14,7 +14,6 @@ public class DocumentController {
     private DocumentService documentService;
 
     @PostMapping("/send")
-    @ResponseBody
     public ResponseEntity<String> getDocument(@RequestBody Document documents) {
         return new ResponseEntity<>(documents.getText(), HttpStatus.OK);
     }
