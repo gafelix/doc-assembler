@@ -1,18 +1,16 @@
 package my.project.docassembler.service.Impl;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import my.project.docassembler.model.Document;
 import my.project.docassembler.service.DocumentService;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-@Slf4j
+@Primary
 @Service
 @AllArgsConstructor
-public class DocumentServiceImpl implements DocumentService {
+public class DocumentServiceViewPreorder implements DocumentService {
 
     @Override
-    public String view(Document document) {
-        return document.getText();
-    }
+    public String view(Document document) { return document.getText(); }
 }

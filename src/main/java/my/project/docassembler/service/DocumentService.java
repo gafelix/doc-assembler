@@ -7,4 +7,5 @@ import org.springframework.stereotype.Service;
 public interface DocumentService {
 
     String view(Document document);
+
 }
