@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Primary
 @Service
 @AllArgsConstructor
-public class DocumentServiceViewPreorder implements DocumentService {
+public class DocumentServiceView implements DocumentService {
 
     @Override
     public String view(Document document) { return document.getText(); }
