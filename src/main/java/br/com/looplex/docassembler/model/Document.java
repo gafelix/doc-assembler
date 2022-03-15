@@ -1,9 +1,12 @@
 package br.com.looplex.docassembler.model;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Getter
 public class Document {
 
     @Id

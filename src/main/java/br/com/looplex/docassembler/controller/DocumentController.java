@@ -1,26 +1,29 @@
 package br.com.looplex.docassembler.controller;
 
 import br.com.looplex.docassembler.model.Document;
-import br.com.looplex.docassembler.service.dto.DocumentDto;
+import br.com.looplex.docassembler.repository.DocumentRepository;
+import br.com.looplex.docassembler.service.dto.DocumentTreeDto;
+import br.com.looplex.docassembler.service.form.DocumentForm;
 import br.com.looplex.docassembler.service.mapper.DocumentMapper;
+import br.com.looplex.docassembler.service.printer.DocumentPrinterPicker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/document")
 public class DocumentController {
 
     private DocumentMapper documentMapper;
+    private DocumentPrinterPicker documentPrinterPicker;
+    private DocumentRepository documentRepository;
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -29,12 +32,29 @@ public class DocumentController {
         this.documentMapper = documentMapper;
     }
 
-    @PostMapping
-    @Transactional
-    public ResponseEntity<HttpStatus> createDocument(@Valid @RequestBody DocumentDto documentDto) {
-        Document document = documentMapper.dtoToEntity(documentDto);
-        entityManager.persist(document);
-        return ResponseEntity.ok().build();
+    @Autowired
+    public void setDocumentPrinter(DocumentPrinterPicker documentPrinterPicker) {
+        this.documentPrinterPicker = documentPrinterPicker;
     }
 
+    @Autowired
+    public void setDocumentRepository(DocumentRepository documentRepository) {
+        this.documentRepository = documentRepository;
+    }
+
+    @PostMapping
+    @Transactional
+    public ResponseEntity<Document> createDocument(@Valid @RequestBody DocumentForm documentForm) {
+        Document document = documentMapper.dtoToEntity(documentForm);
+        entityManager.persist(document);
+        return new ResponseEntity<>(document, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DocumentTreeDto> viewDocument(@PathVariable Long id, @RequestHeader(defaultValue = "preorder") String strategy) {
+        Optional<Document> document = documentRepository.findById(id);
+        if(document.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        String tree = documentPrinterPicker.printTree(document.get(), strategy);
+        return  new ResponseEntity<>(new DocumentTreeDto(tree, strategy), HttpStatus.OK);
+    }
 }
