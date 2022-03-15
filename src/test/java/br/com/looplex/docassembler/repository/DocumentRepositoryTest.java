@@ -9,7 +9,6 @@ import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.util.Optional;
 
 @DataJpaTest
@@ -26,7 +25,6 @@ public class DocumentRepositoryTest {
     }
 
     @Test
-    @Transactional
     public void shouldFindDocumentById() {
         Document document = new Document("Empty root node", null);
         entityManager.persist(document);
