@@ -46,6 +46,16 @@ public class DocumentControllerTest {
     }
 
     @Test
+    public void shouldPostDocumentTree() throws Exception {
+        URI uri = URI.create("/document");
+        String body = "{\"text\": \"1\", \"children\": [{\"text\": \"2\", \"children\": [{\"text\": \"4\", \"children\": []}, {\"text\": \"5\", \"children\": []}]}, {\"text\": \"3\", \"children\": []}]}";
+        mockMvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType("application/json").content(body))
+                .andExpect(MockMvcResultMatchers
+                .status().isCreated());
+    }
+
+    @Test
     public void shouldGetDocumentByIdAndDisplayPreorderTree() throws Exception {
         URI uri = URI.create("/document/1?strategy=preorder");
         String expectedResponse = "{\"tree\": \"[1, 2, 4, 5, 3]\", \"strategy\": \"preorder\"}";
