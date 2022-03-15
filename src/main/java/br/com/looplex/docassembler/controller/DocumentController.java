@@ -15,7 +15,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/document")
@@ -44,10 +46,13 @@ public class DocumentController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Document> createDocument(@Valid @RequestBody DocumentForm documentForm) {
-        Document document = documentMapper.dtoToEntity(documentForm);
+    public ResponseEntity<DocumentForm> createDocument(@Valid @RequestBody DocumentForm documentForm) {
+        Document document = documentMapper.formToEntity(documentForm);
         entityManager.persist(document);
-        return new ResponseEntity<>(document, HttpStatus.CREATED);
+        URI uri = URI.create("/document/" + document.getId());
+        return ResponseEntity
+                .created(uri)
+                .body(documentForm);
     }
 
     @GetMapping("/{id}")
@@ -55,6 +60,6 @@ public class DocumentController {
         Optional<Document> document = documentRepository.findById(id);
         if(document.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         String tree = documentPrinterPicker.printTree(document.get(), strategy);
-        return  new ResponseEntity<>(new DocumentTreeDto(tree, strategy), HttpStatus.OK);
+        return ResponseEntity.ok().body(new DocumentTreeDto(tree, strategy));
     }
 }

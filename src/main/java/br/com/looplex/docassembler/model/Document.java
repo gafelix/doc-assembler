@@ -5,6 +5,7 @@ import lombok.Getter;
 import javax.persistence.*;
 import java.util.List;
 
+
 @Entity
 @Getter
 public class Document {
