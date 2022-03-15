@@ -51,7 +51,7 @@ public class DocumentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DocumentTreeDto> viewDocument(@PathVariable Long id, @RequestHeader(defaultValue = "preorder") String strategy) {
+    public ResponseEntity<DocumentTreeDto> viewDocument(@PathVariable Long id, @RequestParam(defaultValue = "preorder") String strategy) {
         Optional<Document> document = documentRepository.findById(id);
         if(document.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         String tree = documentPrinterPicker.printTree(document.get(), strategy);

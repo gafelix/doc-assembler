@@ -8,22 +8,22 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-@Service("preorder")
-public class DocumentPrinterPreorder implements DocumentPrinter {
+@Service("postorder")
+public class DocumentPrinterPostorder implements DocumentPrinter {
 
     private List<String> nodes;
 
-    public DocumentPrinterPreorder() {
+    public DocumentPrinterPostorder() {
         this.nodes = new ArrayList<>();
     }
 
     public void print(Document document) {
-        nodes.add(document.getText());
         List<Document> children = document.getChildren();
         if(Objects.nonNull(children))
             for(Document child : children) {
                 print(child);
             }
+        nodes.add(document.getText());
     }
 
     @Override

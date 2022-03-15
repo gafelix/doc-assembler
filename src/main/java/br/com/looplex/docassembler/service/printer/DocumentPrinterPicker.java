@@ -18,7 +18,7 @@ public class DocumentPrinterPicker {
 
     public String printTree(Document document, String strategy) {
         documentPrinter = beanFactory.getBean(strategy, DocumentPrinter.class);
-        return documentPrinter.print(document);
+        return documentPrinter.display(document);
     }
 
 }
