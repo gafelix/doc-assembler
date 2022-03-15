@@ -7,7 +7,6 @@ import br.com.looplex.docassembler.service.form.DocumentForm;
 import br.com.looplex.docassembler.service.mapper.DocumentMapper;
 import br.com.looplex.docassembler.service.printer.DocumentPrinterPicker;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -62,4 +61,5 @@ public class DocumentController {
         String tree = documentPrinterPicker.printTree(document.get(), strategy);
         return ResponseEntity.ok().body(new DocumentTreeDto(tree, strategy));
     }
+
 }
