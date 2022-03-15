@@ -28,8 +28,7 @@ public class DocumentRepositoryTest {
     public void shouldFindDocumentById() {
         Document document = new Document("Empty root node", null);
         entityManager.persist(document);
-        Long id = Long.valueOf(1);
-        Optional<Document> foundDocument = documentRepository.findById(id);
+        Optional<Document> foundDocument = documentRepository.findById(Long.valueOf(1));
         Assert.isTrue(foundDocument.isPresent(), "Document doesn't exist.");
     }
 
