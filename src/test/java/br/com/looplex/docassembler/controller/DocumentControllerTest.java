@@ -1,6 +1,8 @@
 package br.com.looplex.docassembler.controller;
 
 import br.com.looplex.docassembler.model.Document;
+import br.com.looplex.docassembler.repository.DocumentRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +27,15 @@ import java.util.List;
 @Transactional
 public class DocumentControllerTest {
 
-    @Autowired
+    private DocumentRepository documentRepository;
     private TestEntityManager testEntityManager;
     private MockMvc mockMvc;
+
+    @Autowired
+    public void setDocumentRepository(DocumentRepository documentRepository) { this.documentRepository = documentRepository; }
+
+    @Autowired
+    public void setTestEntityManager(TestEntityManager testEntityManager) { this.testEntityManager = testEntityManager; }
 
     @Autowired
     public void setMockMvc(MockMvc mockMvc) {
@@ -43,6 +51,11 @@ public class DocumentControllerTest {
                 new Document("3", null));
         Document document = new Document("1", children);
         testEntityManager.persist(document);
+    }
+
+    @AfterEach
+    public void resetDocumentIdIncrementation() {
+        testEntityManager.getEntityManager().createNativeQuery("ALTER TABLE document ALTER COLUMN id RESTART WITH 1").executeUpdate();
     }
 
     @Test
