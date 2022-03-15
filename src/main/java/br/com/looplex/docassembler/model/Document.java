@@ -7,10 +7,18 @@ import java.util.List;
 public class Document {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<Document> children;
     private String text;
+
+    public Document() {
+    }
+
+    public Document(String text, List<Document> children) {
+        this.text = text;
+        this.children = children;
+    }
 
 }
