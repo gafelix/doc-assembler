@@ -6,18 +6,17 @@ import br.com.looplex.docassembler.service.dto.DocumentTreeDto;
 import br.com.looplex.docassembler.service.form.DocumentForm;
 import br.com.looplex.docassembler.service.mapper.DocumentMapper;
 import br.com.looplex.docassembler.service.printer.DocumentPrinterPicker;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.looplex.docassembler.service.printer.DocumentPrinterStrategy;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.Optional;
 
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/document")
 public class DocumentController {
@@ -25,29 +24,12 @@ public class DocumentController {
     private DocumentMapper documentMapper;
     private DocumentPrinterPicker documentPrinterPicker;
     private DocumentRepository documentRepository;
-    @PersistenceContext
-    private EntityManager entityManager;
-
-    @Autowired
-    public void setDocumentMapper(DocumentMapper documentMapper) {
-        this.documentMapper = documentMapper;
-    }
-
-    @Autowired
-    public void setDocumentPrinter(DocumentPrinterPicker documentPrinterPicker) {
-        this.documentPrinterPicker = documentPrinterPicker;
-    }
-
-    @Autowired
-    public void setDocumentRepository(DocumentRepository documentRepository) {
-        this.documentRepository = documentRepository;
-    }
 
     @PostMapping
     @Transactional
     public ResponseEntity<DocumentForm> createDocument(@Valid @RequestBody DocumentForm documentForm) {
         Document document = documentMapper.formToEntity(documentForm);
-        entityManager.persist(document);
+        documentRepository.save(document);
         URI uri = URI.create("/document/" + document.getId());
         return ResponseEntity
                 .created(uri)
@@ -55,11 +37,10 @@ public class DocumentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DocumentTreeDto> viewDocument(@PathVariable Long id, @RequestParam(defaultValue = "preorder") String strategy) {
-        Optional<Document> document = documentRepository.findById(id);
-        if(document.isEmpty()) return ResponseEntity.notFound().build();
-        String tree = documentPrinterPicker.printTree(document.get(), strategy);
-        return ResponseEntity.ok().body(new DocumentTreeDto(tree, strategy));
+    public ResponseEntity<DocumentTreeDto> viewDocument(@PathVariable Long id, @RequestParam(defaultValue = "PREORDER") DocumentPrinterStrategy strategy) {
+        Document document = documentRepository.findById(id).orElseThrow();
+        String tree = documentPrinterPicker.printTree(document, strategy);
+        return ResponseEntity.ok().body(new DocumentTreeDto(tree, strategy.name()));
     }
 
 }

@@ -10,7 +10,10 @@ public class DocumentMapperImp implements DocumentMapper {
 
     @Override
     public Document formToEntity(DocumentForm documentForm) {
-        return new Document(documentForm.getText(), documentForm.getChildren());
+        return Document.builder()
+                .text(documentForm.getText())
+                .children(documentForm.getChildren())
+                .build();
     }
 
 }

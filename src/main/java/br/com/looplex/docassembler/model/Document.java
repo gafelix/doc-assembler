@@ -1,6 +1,6 @@
 package br.com.looplex.docassembler.model;
 
-import lombok.Getter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,6 +8,9 @@ import java.util.List;
 
 @Entity
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Document {
 
     @Id
@@ -15,14 +18,7 @@ public class Document {
     private Long id;
     @OneToMany(cascade = CascadeType.PERSIST)
     private List<Document> children;
+    @NonNull
     private String text;
-
-    public Document() {
-    }
-
-    public Document(String text, List<Document> children) {
-        this.text = text;
-        this.children = children;
-    }
 
 }

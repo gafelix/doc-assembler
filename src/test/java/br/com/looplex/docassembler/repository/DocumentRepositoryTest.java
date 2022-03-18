@@ -7,8 +7,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.util.Assert;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.Optional;
 
 
@@ -16,19 +14,15 @@ import java.util.Optional;
 @ActiveProfiles("test")
 public class DocumentRepositoryTest {
 
-    private DocumentRepository documentRepository;
-    @PersistenceContext
-    private EntityManager entityManager;
-
     @Autowired
-    public void setDocumentRepository(DocumentRepository documentRepository) {
-        this.documentRepository = documentRepository;
-    }
+    private DocumentRepository documentRepository;
 
     @Test
     public void shouldFindDocumentById() {
-        Document document = new Document("Empty root node", null);
-        entityManager.persist(document);
+        Document document = Document.builder()
+                        .text("Empty root node")
+                        .build();
+        documentRepository.save(document);
         Optional<Document> foundDocument = documentRepository.findById(Long.valueOf(1));
         Assert.isTrue(foundDocument.isPresent(), "Document doesn't exist.");
     }
