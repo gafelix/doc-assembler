@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 import static br.com.looplex.docassembler.exceptions.ExceptionUtil.*;
 
 
-@AllArgsConstructor
 @RestControllerAdvice
 public class DocumentExceptionHandler {
 

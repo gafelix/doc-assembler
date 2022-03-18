@@ -1,4 +1,4 @@
-package br.com.looplex.docassembler.service;
+package br.com.looplex.docassembler.service.repositories;
 
 import br.com.looplex.docassembler.exceptions.custom.DocumentBadRequestException;
 import br.com.looplex.docassembler.exceptions.custom.DocumentNotFoundException;
