@@ -30,7 +30,9 @@ public class DocumentPrinterPreorder implements DocumentPrinter {
     @Override
     public String display(Document document) {
         print(document);
-        return Arrays.toString(nodes.toArray());
+        String tree = Arrays.toString(nodes.toArray());
+        nodes.clear();
+        return tree;
     }
 
 }
