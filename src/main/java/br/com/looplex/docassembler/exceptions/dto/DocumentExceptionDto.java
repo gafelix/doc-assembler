@@ -4,15 +4,14 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 
 @Builder
 @Getter
 public class DocumentExceptionDto {
 
+    private Long id;
     private String error;
     private LocalDateTime timestamp;
-    private List<String> stacktrace;
 
 }

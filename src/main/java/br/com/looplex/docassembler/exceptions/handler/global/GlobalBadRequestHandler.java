@@ -1,8 +1,9 @@
-package br.com.looplex.docassembler.exceptions;
+package br.com.looplex.docassembler.exceptions.handler.global;
 
 import br.com.looplex.docassembler.exceptions.dto.DocumentExceptionDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -10,23 +11,16 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import java.time.LocalDateTime;
 
-import static br.com.looplex.docassembler.exceptions.ExceptionUtil.getStackTrace;
-
-
 @RestControllerAdvice
-public class GlobalExceptionHandler {
+public class GlobalBadRequestHandler {
 
-    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    @ExceptionHandler({MethodArgumentTypeMismatchException.class, MethodArgumentNotValidException.class, IllegalArgumentException.class})
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public ResponseEntity<DocumentExceptionDto> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException exception) {
-        String message = String.format("%s should be %s and %s is not.",
-                exception.getName(),
-                exception.getRequiredType().getSimpleName(),
-                exception.getValue());
         DocumentExceptionDto documentExceptionDto = DocumentExceptionDto
                 .builder()
-                .error(message)
-                .stacktrace(getStackTrace(exception))
+                .id(Long.valueOf(400))
+                .error(exception.getMessage())
                 .timestamp(LocalDateTime.now())
                 .build();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)

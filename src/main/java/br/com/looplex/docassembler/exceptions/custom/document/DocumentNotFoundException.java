@@ -1,4 +1,4 @@
-package br.com.looplex.docassembler.exceptions.custom;
+package br.com.looplex.docassembler.exceptions.custom.document;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
