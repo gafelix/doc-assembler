@@ -6,8 +6,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public enum DocumentPrinterStrategy {
 
-    PREORDER("preorder"),
-    POSTORDER("postorder");
+    LEFTSIDE("leftside");
 
     private final String value;
 

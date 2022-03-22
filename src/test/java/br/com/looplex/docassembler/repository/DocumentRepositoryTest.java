@@ -1,6 +1,7 @@
 package br.com.looplex.docassembler.repository;
 
 import br.com.looplex.docassembler.model.Document;
+import br.com.looplex.docassembler.model.LeafDocument;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -19,7 +20,7 @@ public class DocumentRepositoryTest {
 
     @Test
     public void shouldFindDocumentById() {
-        Document document = Document.builder()
+        Document document = LeafDocument.builder()
                         .text("Empty root node")
                         .build();
         documentRepository.save(document);

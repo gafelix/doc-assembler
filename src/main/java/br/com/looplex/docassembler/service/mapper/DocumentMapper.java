@@ -1,11 +1,12 @@
-package br.com.looplex.docassembler.service.mapper;
+/*package br.com.looplex.docassembler.service.mapper;
 
-import br.com.looplex.docassembler.model.Document;
+import br.com.looplex.docassembler.model.InternalDocument;
 import br.com.looplex.docassembler.service.form.DocumentForm;
 
 
 public interface DocumentMapper {
 
-    Document formToEntity(DocumentForm documentForm);
+    InternalDocument formToEntity(DocumentForm documentForm);
 
 }
+*/

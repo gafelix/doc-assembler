@@ -5,8 +5,6 @@ import br.com.looplex.docassembler.exceptions.custom.document.DocumentNotFoundEx
 import br.com.looplex.docassembler.model.Document;
 import br.com.looplex.docassembler.repository.DocumentRepository;
 import br.com.looplex.docassembler.service.dto.DocumentTreeDto;
-import br.com.looplex.docassembler.service.form.DocumentForm;
-import br.com.looplex.docassembler.service.mapper.DocumentMapper;
 import br.com.looplex.docassembler.service.printer.DocumentPrinterPicker;
 import br.com.looplex.docassembler.service.printer.DocumentPrinterStrategy;
 import lombok.AllArgsConstructor;
@@ -19,13 +17,12 @@ import javax.validation.ConstraintViolationException;
 public class DocumentService {
 
     private DocumentRepository documentRepository;
-    private DocumentMapper documentMapper;
     private DocumentPrinterPicker documentPrinterPicker;
 
-    public Document createDocument(DocumentForm documentForm) throws DocumentBadRequestException {
+    public Document createDocument(Document documentForm) throws DocumentBadRequestException {
         Document savedDocument;
         try {
-            savedDocument = documentRepository.save(documentMapper.formToEntity(documentForm));
+            savedDocument = documentRepository.save(documentForm);
         } catch (ConstraintViolationException exception) {
             throw new DocumentBadRequestException("Request for creating new document is invalid. Check if one or more parameters are missing.");
         }
@@ -34,13 +31,14 @@ public class DocumentService {
 
     public Document findById(Long id) throws DocumentNotFoundException {
         return documentRepository.findById(id).orElseThrow(
-                () -> new DocumentNotFoundException(String.format("Document of ID %s was not found. Have you created the resource?", id))
+                () -> new DocumentNotFoundException(String.format("InternalDocument of ID %s was not found. Have you created the resource?", id))
         );
     }
 
     public DocumentTreeDto displayDocumentTree(Long id, DocumentPrinterStrategy strategy) {
         Document document = findById(id);
-        String tree = documentPrinterPicker.printTree(document, strategy);
+        documentPrinterPicker.setPicker(strategy);
+        String tree = documentPrinterPicker.printTree(document);
         return new DocumentTreeDto(tree, strategy.name());
     }
 
