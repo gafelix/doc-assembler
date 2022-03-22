@@ -25,12 +25,12 @@ public class DocumentController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<DocumentForm> createDocument(@Valid @RequestBody DocumentForm documentForm) {
+    public ResponseEntity<Document> createDocument(@Valid @RequestBody DocumentForm documentForm) {
         Document document = documentService.createDocument(documentForm);
         URI location = URI.create("/document/" + document.getId());
         return ResponseEntity
                 .created(location)
-                .body(documentForm);
+                .body(document);
     }
 
     @GetMapping("/{id}")
