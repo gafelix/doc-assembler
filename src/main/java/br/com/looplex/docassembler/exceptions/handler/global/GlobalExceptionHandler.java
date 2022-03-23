@@ -1,8 +1,6 @@
 package br.com.looplex.docassembler.exceptions.handler.global;
 
-import br.com.looplex.docassembler.exceptions.Logger;
 import br.com.looplex.docassembler.exceptions.dto.DocumentExceptionDto;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,12 +11,11 @@ import java.time.LocalDateTime;
 
 
 @RestControllerAdvice
-public class GlobalExceptionHandler extends Logger {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler({Exception.class})
     @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<DocumentExceptionDto> handleException(Exception exception) {
-        super.logException(exception);
         DocumentExceptionDto documentExceptionDto = DocumentExceptionDto
                 .builder()
                 .id(Long.valueOf(500))
