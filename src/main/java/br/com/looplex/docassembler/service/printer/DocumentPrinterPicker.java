@@ -1,6 +1,5 @@
 package br.com.looplex.docassembler.service.printer;
 
-import br.com.looplex.docassembler.service.mapper.DocumentMapper;
 import br.com.looplex.docassembler.service.traversal.DocumentTraversal;
 import br.com.looplex.docassembler.service.traversal.LeafDocumentTraversal;
 import lombok.*;
@@ -19,8 +18,6 @@ public class DocumentPrinterPicker {
 
     @NonNull
     private BeanFactory beanFactory;
-    @NonNull
-    private DocumentMapper documentMapper;
     @Getter
     private DocumentPrinter documentPrinter;
 
