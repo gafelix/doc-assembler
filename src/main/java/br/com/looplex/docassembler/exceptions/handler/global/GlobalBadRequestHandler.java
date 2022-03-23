@@ -1,5 +1,6 @@
 package br.com.looplex.docassembler.exceptions.handler.global;
 
+import br.com.looplex.docassembler.exceptions.Logger;
 import br.com.looplex.docassembler.exceptions.dto.DocumentExceptionDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +13,12 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import java.time.LocalDateTime;
 
 @RestControllerAdvice
-public class GlobalBadRequestHandler {
+public class GlobalBadRequestHandler extends Logger {
 
     @ExceptionHandler({MethodArgumentTypeMismatchException.class, MethodArgumentNotValidException.class, IllegalArgumentException.class})
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public ResponseEntity<DocumentExceptionDto> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException exception) {
+        super.logException(exception);
         DocumentExceptionDto documentExceptionDto = DocumentExceptionDto
                 .builder()
                 .id(Long.valueOf(400))

@@ -1,5 +1,6 @@
 package br.com.looplex.docassembler.exceptions.handler.document;
 
+import br.com.looplex.docassembler.exceptions.Logger;
 import br.com.looplex.docassembler.exceptions.custom.document.DocumentNotFoundException;
 import br.com.looplex.docassembler.exceptions.dto.DocumentExceptionDto;
 import org.springframework.core.annotation.Order;
@@ -13,10 +14,11 @@ import java.time.LocalDateTime;
 
 @RestControllerAdvice
 @Order(1)
-public class DocumentNotFoundHandler {
+public class DocumentNotFoundHandler extends Logger {
 
     @ExceptionHandler(DocumentNotFoundException.class)
     public ResponseEntity<DocumentExceptionDto> handleNotFoundException(DocumentNotFoundException exception) {
+        super.logException(exception);
         DocumentExceptionDto documentExceptionDto = DocumentExceptionDto
                 .builder()
                 .id(Long.valueOf(404))

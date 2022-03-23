@@ -1,5 +1,6 @@
 package br.com.looplex.docassembler.exceptions.handler.document;
 
+import br.com.looplex.docassembler.exceptions.Logger;
 import br.com.looplex.docassembler.exceptions.custom.document.DocumentBadRequestException;
 import br.com.looplex.docassembler.exceptions.dto.DocumentExceptionDto;
 import org.springframework.core.annotation.Order;
@@ -13,10 +14,11 @@ import java.time.LocalDateTime;
 
 @RestControllerAdvice
 @Order(1)
-public class DocumentFormInvalidHandler {
+public class DocumentFormInvalidHandler extends Logger {
 
     @ExceptionHandler(DocumentBadRequestException.class)
     public ResponseEntity<DocumentExceptionDto> handleBadRequest(DocumentBadRequestException exception) {
+        super.logException(exception);
         DocumentExceptionDto documentExceptionDto = DocumentExceptionDto
                 .builder()
                 .id(Long.valueOf(400))
