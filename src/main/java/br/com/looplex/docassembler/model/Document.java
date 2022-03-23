@@ -30,6 +30,4 @@ public abstract class Document {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public abstract void traverse(List<Document> tree , DocumentPrinter documentPrinter);
-
 }

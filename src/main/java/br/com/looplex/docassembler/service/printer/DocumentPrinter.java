@@ -1,13 +1,15 @@
 package br.com.looplex.docassembler.service.printer;
 
-import br.com.looplex.docassembler.model.Document;
-import br.com.looplex.docassembler.model.InternalDocument;
+import br.com.looplex.docassembler.service.traversal.DocumentTraversal;
+import br.com.looplex.docassembler.service.traversal.InternalDocumentTraversal;
 
 import java.util.List;
 
 
 public interface DocumentPrinter {
 
-    void saveTree(InternalDocument internalDocument, List<Document> tree, DocumentPrinter documentPrinter);
+    void saveTree(InternalDocumentTraversal internalDocumentTraversal,
+                  List<DocumentTraversal> tree,
+                  DocumentPrinter documentPrinter);
 
 }

@@ -24,7 +24,7 @@ public class DocumentController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Document> createDocument(@Valid @RequestBody Document documentForm) {
+    public ResponseEntity<Document> createDocument(@Valid @RequestBody DocumentForm documentForm) {
         Document document = documentService.createDocument(documentForm);
         URI location = URI.create("/document/" + document.getId());
         return ResponseEntity
