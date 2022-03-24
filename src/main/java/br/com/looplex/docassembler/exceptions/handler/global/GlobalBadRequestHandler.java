@@ -20,7 +20,7 @@ public class GlobalBadRequestHandler extends LoggingAspect {
     public ResponseEntity<DocumentExceptionDto> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException exception) {
         DocumentExceptionDto documentExceptionDto = DocumentExceptionDto
                 .builder()
-                .id(Long.valueOf(400))
+                .id(400L)
                 .error(exception.getMessage())
                 .timestamp(LocalDateTime.now())
                 .build();

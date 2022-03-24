@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoggingAspect {
 
-    @Pointcut("execution(* br.com.looplex.docassembler.exceptions.handler..*(..)) && args(exception)")
+    @Pointcut("execution(* br.com.looplex.docassembler..*(..)) && args(exception)")
     public void logExceptionHandlers(Exception exception) {}
 
     @Before("logExceptionHandlers(exception)")

@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<DocumentExceptionDto> handleException(Exception exception) {
         DocumentExceptionDto documentExceptionDto = DocumentExceptionDto
                 .builder()
-                .id(Long.valueOf(500))
+                .id(500L)
                 .error(exception.getMessage())
                 .timestamp(LocalDateTime.now())
                 .build();

@@ -1,6 +1,5 @@
 package br.com.looplex.docassembler.model;
 
-import br.com.looplex.docassembler.service.printer.DocumentPrinter;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.AllArgsConstructor;
@@ -11,8 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import java.util.List;
 
 import static com.fasterxml.jackson.annotation.JsonSubTypes.*;
 

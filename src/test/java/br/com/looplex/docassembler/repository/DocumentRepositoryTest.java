@@ -24,7 +24,7 @@ public class DocumentRepositoryTest {
                         .text("Empty root node")
                         .build();
         documentRepository.save(document);
-        Optional<Document> foundDocument = documentRepository.findById(Long.valueOf(1));
+        Optional<Document> foundDocument = documentRepository.findById(1L);
         Assert.isTrue(foundDocument.isPresent(), "Document doesn't exist.");
     }
 

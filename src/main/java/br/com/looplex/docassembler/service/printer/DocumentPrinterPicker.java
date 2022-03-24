@@ -1,7 +1,7 @@
 package br.com.looplex.docassembler.service.printer;
 
-import br.com.looplex.docassembler.service.traversal.DocumentTraversal;
-import br.com.looplex.docassembler.service.traversal.LeafDocumentTraversal;
+import br.com.looplex.docassembler.model.Document;
+import br.com.looplex.docassembler.model.LeafDocument;
 import lombok.*;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.stereotype.Service;
@@ -25,12 +25,12 @@ public class DocumentPrinterPicker {
         documentPrinter = beanFactory.getBean(strategy.value(), DocumentPrinter.class);
     }
 
-    public String printTree(DocumentTraversal documentTraversal) {
-        List<DocumentTraversal> documents = new ArrayList<>();
-        documentTraversal.traverse(documents, documentPrinter);
+    public String printTree(Document document) {
+        List<Document> documents = new ArrayList<>();
+        documentPrinter.saveTree(document, documents);
         List<String> leafs = documents.stream()
-                .map(leaf -> (LeafDocumentTraversal) leaf)
-                .map(LeafDocumentTraversal::getText)
+                .map(leaf -> (LeafDocument) leaf)
+                .map(LeafDocument::getText)
                 .collect(Collectors.toList());
         String display = Arrays.toString(leafs.toArray());
         leafs.clear();

@@ -19,7 +19,7 @@ public class DocumentFormInvalidHandler {
     public ResponseEntity<DocumentExceptionDto> handleBadRequest(DocumentBadRequestException exception) {
         DocumentExceptionDto documentExceptionDto = DocumentExceptionDto
                 .builder()
-                .id(Long.valueOf(400))
+                .id(400L)
                 .error(exception.getMessage())
                 .timestamp(LocalDateTime.now())
                 .build();

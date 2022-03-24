@@ -9,7 +9,6 @@ import br.com.looplex.docassembler.service.form.DocumentForm;
 import br.com.looplex.docassembler.service.mapper.DocumentMapper;
 import br.com.looplex.docassembler.service.printer.DocumentPrinterPicker;
 import br.com.looplex.docassembler.service.printer.DocumentPrinterStrategy;
-import br.com.looplex.docassembler.service.traversal.DocumentTraversal;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -42,8 +41,7 @@ public class DocumentService {
     public DocumentTreeDto displayDocumentTree(Long id, DocumentPrinterStrategy strategy) {
         Document document = findById(id);
         documentPrinterPicker.setPicker(strategy);
-        DocumentTraversal documentTraversal = documentMapper.toDocumentTraversal(document);
-        String tree = documentPrinterPicker.printTree(documentTraversal);
+        String tree = documentPrinterPicker.printTree(document);
         return new DocumentTreeDto(tree, strategy.name());
     }
 

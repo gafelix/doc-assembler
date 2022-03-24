@@ -19,7 +19,7 @@ public class DocumentNotFoundHandler {
     public ResponseEntity<DocumentExceptionDto> handleNotFoundException(DocumentNotFoundException exception) {
         DocumentExceptionDto documentExceptionDto = DocumentExceptionDto
                 .builder()
-                .id(Long.valueOf(404))
+                .id(404L)
                 .error(exception.getMessage())
                 .timestamp(LocalDateTime.now())
                 .build();
